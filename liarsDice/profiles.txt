@@ -1,0 +1,7 @@
+{
+    "Honest Player": {
+        "turns": "21",
+        "playerBluff": "-2",
+        "playerGul": "0"
+    }
+}

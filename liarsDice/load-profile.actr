@@ -1,0 +1,94 @@
+;;model for finding profiles
+
+(add-dm
+    (p1 isa profile playerName Eser)
+    (goal isa initiate-model state start)
+)
+
+(p acquire-name
+ =goal>
+    isa initiate-model
+    state start
+==>
+ =goal>
+    isa initiate-model
+    state find-player
+ +action>
+    isa get-profile
+    playerName string
+)
+
+(p find-profile
+ =goal>
+    isa initiate-model
+    state find-player
+ =action>
+    isa get-profile
+    playerName =string
+==>
+ =goal>
+    playerName =string
+    state retrieving
+ +retrieval>
+    isa profile
+    playerName =string
+ -action>
+)
+
+(p profile-not-found
+ =goal>
+    isa initiate-model
+    state retrieving
+ ?retrieval>
+    state error
+==>
+ =goal>
+    isa initiate-model
+    state unknown-player
+)
+
+(p profile-found
+ =goal>
+    isa initiate-model
+    state retrieving
+    - playerName noname
+==>
+ =goal>
+    state known-player
+ +action>
+    playerName string
+    early-t val1
+    early-ut val2
+    early-g val3
+    early-ng val4
+    end-t val5
+    end-ut val6
+    end-g val7
+    end-ng val8
+    turnCount val9
+)
+
+(p create-profile
+ =goal>
+    isa initiate-model
+    state unknown-player
+==>
+ =goal>
+    isa initiate-model
+    state asdasd
+ +action>
+    playerName string
+    early-t val1
+    early-ut val2
+    early-g val3
+    early-ng val4
+    end-t val5
+    end-ut val6
+    end-g val7
+    end-ng val8
+    turnCount val9
+)
+
+
+
+(goal-focus goal)

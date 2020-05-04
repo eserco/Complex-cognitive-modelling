@@ -1,0 +1,808 @@
+
+(add-dm
+    (goal isa initiate-game state start)
+)
+
+(p collect-info-h
+ =goal>
+    isa initiate-game
+    state start
+==>
+ =goal>
+    isa initiate-game
+    state store
+ +action>
+    isa info
+    modelbid val2
+    playerbid val1
+    fix bool2
+    turn who
+    playerBluff val3
+    playerGul val4
+    influence val5
+	outcome state
+)
+
+(p store-info
+ =goal>
+    isa initiate-game
+    state store
+ =action>
+    isa info
+    modelbid =val2
+    playerbid =val1
+    fix =bool2
+    turn =who
+    playerBluff =val3
+    playerGul =val4
+    influence =val5
+	outcome =state
+==>
+ =goal>
+    isa initiate-game
+    state decide
+    modelbid =val2
+    playerbid =val1
+    fix =bool2
+    turn =who
+    playerBluff =val3
+    playerGul =val4
+    influence =val5
+	outcome =state
+ -action>
+)
+
+;;some believe cases for bid 0,1
+(p believe-1
+ =goal>
+    isa initiate-game
+    state decide
+ <= playerbid 2
+ >= playerBluff -2
+ >= fix 0
+ >= influence 1 
+    turn player
+==>
+ +action>
+    isa decision
+    response believe
+ =goal>
+    state start
+)
+
+;;believe cases for 6
+(p believe-2
+ =goal>
+    isa initiate-game
+    state decide
+    playerbid 6
+ >= playerBluff -2
+    fix 5
+ >= influence 1 
+    turn player
+==>
+ +action>
+    isa decision
+    response believe
+ =goal>
+    state start
+)
+
+;;some believe cases for 2,3,4
+(p believe-3
+ =goal>
+    isa initiate-game
+    state decide
+ >= playerbid 2
+ <=	playerbid 4
+ >= playerBluff 0
+ >= fix 3
+ >= influence 1 
+    turn player
+==>
+ +action>
+    isa decision
+    response believe
+ =goal>
+    state start
+)
+
+;;some believe cases for 2,3
+(p believe-4
+ =goal>
+    isa initiate-game
+    state decide
+ >= playerbid 2
+ <=	playerbid 3
+ <= playerBluff -1
+ >= fix 2
+ >= influence 1 
+    turn player
+==>
+ +action>
+    isa decision
+    response believe
+ =goal>
+    state start
+)
+
+;;some believe cases for 2,3
+(p believe-5
+ =goal>
+    isa initiate-game
+    state decide
+ >= playerbid 2
+ <=	playerbid 3
+    playerBluff 2
+ <= fix 2
+ >= influence 1 
+    turn player
+==>
+ +action>
+    isa decision
+    response believe
+ =goal>
+    state start
+)
+
+;;some believe cases for 5
+(p believe-6
+ =goal>
+    isa initiate-game
+    state decide
+	playerbid 5
+ >= fix 3
+ >= influence 1 
+    turn player
+==>
+ +action>
+    isa decision
+    response believe
+ =goal>
+    state start
+)
+
+;;some believe cases for 2,3
+(p believe-7
+ =goal>
+    isa initiate-game
+    state decide
+ >= playerbid 2 
+ <=	playerbid 3
+ <= playerBluff 1
+ >= playerBluff 0
+	fix 2
+ >= influence 1 
+    turn player
+==>
+ +action>
+    isa decision
+    response believe
+ =goal>
+    state start
+)
+
+;;some believe cases for 2,3
+(p believe-8
+ =goal>
+    isa initiate-game
+    state decide
+ >= playerbid 2 
+ <=	playerbid 3
+ <= playerBluff -1
+	fix 2
+	influence 1 
+    turn player
+==>
+ +action>
+    isa decision
+    response believe
+ =goal>
+    state start
+)
+
+;;some believe cases for 4
+(p believe-9
+ =goal>
+    isa initiate-game
+    state decide
+	playerbid 4
+ <=	playerBluff -1
+	fix 4
+ >= influence 1 
+    turn player
+==>
+ +action>
+    isa decision
+    response believe
+ =goal>
+    state start
+)
+
+;;some believe cases for 2
+(p believe-10
+ =goal>
+    isa initiate-game
+    state decide
+	playerbid 2
+	playerBluff 1
+ <=	fix 1
+ >=	influence 1 
+    turn player
+==>
+ +action>
+    isa decision
+    response believe
+ =goal>
+    state start
+)
+
+;;some believe cases for 4
+(p believe-11
+ =goal>
+    isa initiate-game
+    state decide
+	playerbid 4
+	playerBluff 2
+ >=	fix 2
+ >=	influence 1 
+    turn player
+==>
+ +action>
+    isa decision
+    response believe
+ =goal>
+    state start
+)
+
+;;some believe cases for 3
+(p believe-112
+ =goal>
+    isa initiate-game
+    state decide
+    playerbid 3
+    playerBluff 0
+ <= fix 1
+ >= influence 1
+    turn player
+==>
+ +action>
+    isa decision
+    response believe
+ =goal>
+    state start
+)
+
+;;bluff cases for 6
+(p call-bluff-1
+ =goal>
+    isa initiate-game
+    state decide
+    playerbid 6
+ >= playerBluff -2
+ <= fix 4
+ >= influence 1 
+    turn player
+==>
+ +action>
+    isa decision
+    response callBluff
+ =goal>
+    state start
+)
+
+;;some bluff cases for 2,3,4,5
+(p call-bluff-2
+ =goal>
+    isa initiate-game
+    state decide
+ >= playerbid 3
+ <= playerbid 5
+ <= playerBluff -1
+ <= fix 1
+ >= influence 1 
+    turn player
+==>
+ +action>
+    isa decision
+    response callBluff
+ =goal>
+    state start
+)
+
+;;some bluff cases for 5
+(p call-bluff-3
+ =goal>
+    isa initiate-game
+    state decide
+    playerbid 5
+ <= playerBluff 0
+ <= fix 2
+ >= influence 1 
+    turn player
+==>
+ +action>
+    isa decision
+    response callBluff
+ =goal>
+    state start
+)
+
+;;some bluff cases 3,4,5
+(p call-bluff-4
+ =goal>
+    isa initiate-game
+    state decide
+ >= playerbid 3
+ <=	playerbid 5
+    playerBluff 1
+ <= fix 1
+ >= influence 1 
+    turn player
+==>
+ +action>
+    isa decision
+    response callBluff
+ =goal>
+    state start
+)
+
+;;some bluff cases 4,5
+(p call-bluff-5
+ =goal>
+    isa initiate-game
+    state decide
+ >= playerbid 4
+ <=	playerbid 5
+    playerBluff 2
+ <= fix 1
+ >= influence 1 
+    turn player
+==>
+ +action>
+    isa decision
+    response callBluff
+ =goal>
+    state start
+)
+
+;;some bluff cases 4
+(p call-bluff-6
+ =goal>
+    isa initiate-game
+    state decide
+	playerbid 4
+ <= playerBluff -1
+ >= fix 2
+ <= fix 3
+ >= influence 1 
+    turn player
+==>
+ +action>
+    isa decision
+    response callBluff
+ =goal>
+    state start
+)
+
+
+;;some bluff cases for 4
+(p call-bluff-8
+ =goal>
+    isa initiate-game
+    state decide
+	playerbid 4
+	playerBluff 0
+	fix 2
+ >= influence 1 
+    turn player
+==>
+ +action>
+    isa decision
+    response callBluff
+ =goal>
+    state start
+)
+
+;;some bluff cases for 4,5
+(p call-bluff-9
+ =goal>
+    isa initiate-game
+    state decide
+ <=	playerbid 5
+ >= playerbid 4
+	playerBluff 1
+	fix 2
+ >= influence 1 
+    turn player
+==>
+ +action>
+    isa decision
+    response callBluff
+ =goal>
+    state start
+)
+
+;;some bluff cases for 5
+(p call-bluff-10
+ =goal>
+    isa initiate-game
+    state decide
+	playerbid 5
+	playerBluff 2
+	fix 2
+ >= influence 1 
+    turn player
+==>
+ +action>
+    isa decision
+    response callBluff
+ =goal>
+    state start
+)
+
+
+(p make-t-bid-1
+ =goal>
+ 	isa initiate-game
+ 	state decide
+ 	playerbid =val
+  > modelbid =val
+ <= playerGul 2
+    - turn player
+==>
+ +action>
+    isa decision
+    response t-bid
+ =goal>
+    state start
+)
+
+;left cases for 6
+(p make-t-bid-2
+ =goal>
+ 	isa initiate-game
+ 	state decide
+  <	playerbid 6
+	modelbid 6
+	playerGul 3
+    - turn player
+==>
+ +action>
+    isa decision
+    response t-bid
+ =goal>
+    state start
+)
+
+;left cases for 5
+(p make-t-bid-3
+ =goal>
+ 	isa initiate-game
+ 	state decide
+  <	playerbid 5
+	modelbid 5
+	playerGul 3
+    - turn player
+==>
+ +action>
+    isa decision
+    response t-bid
+ =goal>
+    state start
+)
+
+;left cases for 4
+(p make-t-bid-4
+ =goal>
+ 	isa initiate-game
+ 	state decide
+  <	playerbid 4
+	modelbid 4
+	influence 1
+	playerGul 3
+    - turn player
+==>
+ +action>
+    isa decision
+    response t-bid
+ =goal>
+    state start
+)
+
+;left cases for 3
+(p make-t-bid-5
+ =goal>
+ 	isa initiate-game
+ 	state decide
+  <	playerbid 3
+	modelbid 3
+	influence 1
+	playerGul 3
+    - turn player
+==>
+ +action>
+    isa decision
+    response t-bid
+ =goal>
+    state start
+)
+
+;left cases for 2
+(p make-t-bid-6
+ =goal>
+ 	isa initiate-game
+ 	state decide
+  <	playerbid 2
+	modelbid 2 
+	influence 1
+	playerGul 3
+    - turn player
+==>
+ +action>
+    isa decision
+    response t-bid
+ =goal>
+    state start
+)
+
+;left cases for 1
+(p make-t-bid-7
+ =goal>
+ 	isa initiate-game
+ 	state decide
+	playerbid 0
+	modelbid 1
+	playerGul 3
+    - turn player
+==>
+ +action>
+    isa decision
+    response t-bid
+ =goal>
+    state start
+)
+
+;left cases for 4
+(p make-t-bid-8
+ =goal>
+ 	isa initiate-game
+ 	state decide
+  < playerbid 1
+	modelbid 4
+	influence 2
+	playerGul 3
+    - turn player
+==>
+ +action>
+    isa decision
+    response t-bid
+ =goal>
+    state start
+)
+
+;left cases for 4
+(p make-t-bid-11
+ =goal>
+ 	isa initiate-game
+ 	state decide
+ <= playerbid 3
+ >= playerbid 2
+	modelbid 4
+ <=	fix 1
+	influence 2
+	playerGul 3
+    - turn player
+==>
+ +action>
+    isa decision
+    response t-bid
+ =goal>
+    state start
+)
+
+;left cases for 4
+(p make-t-bid-12
+ =goal>
+ 	isa initiate-game
+ 	state decide
+	playerbid 3
+	modelbid 4
+	fix 2
+	influence 2
+	playerGul 3
+    - turn player
+==>
+ +action>
+    isa decision
+    response t-bid
+ =goal>
+    state start
+)
+
+;left cases for 4
+(p make-t-bid-13
+ =goal>
+ 	isa initiate-game
+ 	state decide
+	playerbid 2
+	modelbid 4
+	fix 4
+	influence 2
+	playerGul 3
+    - turn player
+==>
+ +action>
+    isa decision
+    response t-bid
+ =goal>
+    state start
+)
+
+;left cases for 4
+(p make-t-bid-14
+ =goal>
+ 	isa initiate-game
+ 	state decide
+	playerbid 2
+	modelbid 4
+ >= fix 2	
+ <=	fix 3
+	influence 2
+	playerGul 3
+    - turn player
+==>
+ +action>
+    isa decision
+    response oneh
+ =goal>
+    state start
+)
+
+;left cases for 4
+(p make-t-bid-15
+ =goal>
+ 	isa initiate-game
+ 	state decide
+	playerbid 3
+	modelbid 4
+	fix 3
+	influence 2
+	playerGul 3
+    - turn player
+==>
+ +action>
+    isa decision
+    response twoh
+ =goal>
+    state start
+)
+
+;left cases for 3
+(p make-t-bid-16
+ =goal>
+ 	isa initiate-game
+ 	state decide
+	playerbid 1
+	modelbid 3
+	fix 2
+	influence 2
+	playerGul 3
+    - turn player
+==>
+ +action>
+    isa decision
+    response twoh
+ =goal>
+    state start
+)
+
+;left cases for 2
+(p make-t-bid-17
+ =goal>
+ 	isa initiate-game
+ 	state decide
+	playerbid 1
+	modelbid 2
+	fix 2
+	influence 2
+	playerGul 3
+    - turn player
+==>
+ +action>
+    isa decision
+    response twoh
+ =goal>
+    state start
+)
+
+;left cases for 3
+(p make-t-bid-9
+ =goal>
+ 	isa initiate-game
+ 	state decide
+ <= playerbid 2
+	modelbid 3
+	influence 2
+	playerGul 3
+ <= fix 1
+    - turn player
+==>
+ +action>
+    isa decision
+    response t-bid
+ =goal>
+    state start
+)
+
+;left cases for 3
+(p make-t-bid-10
+ =goal>
+ 	isa initiate-game
+ 	state decide
+	playerbid 2
+	modelbid 3
+	influence 2
+	playerGul 3
+    - turn player
+==>
+ +action>
+    isa decision
+    response t-bid
+ =goal>
+    state start
+)
+
+;left cases for 2
+(p make-t-bid-11
+ =goal>
+ 	isa initiate-game
+ 	state decide
+ <=	playerbid 1
+	modelbid 2
+ <=	fix 1
+	influence 2
+	playerGul 3
+    - turn player
+==>
+ +action>
+    isa decision
+    response t-bid
+ =goal>
+    state start
+)
+
+;;lastresort case
+(p make-lastresort-bluff-bid
+ =goal>
+    isa initiate-game
+    state decide
+    - playerbid 6
+    playerbid =val
+ <= modelbid =val
+    - turn player
+==>
+ +action>
+    isa decision
+    response lastresort
+ =goal>
+    isa initiate-game
+    state start
+)
+
+(p call-bluff-for6
+=goal>
+    isa initiate-game
+    state decide
+    playerbid 6
+    - turn player
+==>
+ +action>
+    isa decision
+    response callBluff
+ =goal>
+    isa initiate-game
+    state start
+)
+
+(goal-focus goal)
